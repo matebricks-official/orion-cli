@@ -1,0 +1,73 @@
+{
+  "name": "orion-cli-desktop",
+  "private": true,
+  "version": "1.0.0",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matebricks-official/orion-cli.git"
+  },
+  "scripts": {
+    "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "tsc -b && vite build",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.matebricks.orioncli",
+    "productName": "Orion CLI",
+    "directories": {
+      "output": "release"
+    },
+    "npmRebuild": false,
+    "win": {
+      "target": [
+        "nsis",
+        "nsis-web",
+        "zip"
+      ],
+      "artifactName": "Orion-CLI-${version}-${arch}.${ext}",
+      "icon": "icon.png"
+    },
+    "nsis": {
+      "artifactName": "Orion-CLI-Setup-${version}-${arch}.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Orion CLI"
+    },
+    "nsisWeb": {
+      "artifactName": "Orion-CLI-Web-Setup-${version}-${arch}.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "appPackageUrl": "https://github.com/matebricks-official/orion-cli/releases/download/v1.0.0/"
+    }
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.8",
+    "lucide-react": "^0.370.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "concurrently": "^10.0.3",
+    "electron": "^42.5.1",
+    "electron-builder": "^26.15.3",
+    "oxlint": "^1.69.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.0",
+    "wait-on": "^9.0.10"
+  }
+}
